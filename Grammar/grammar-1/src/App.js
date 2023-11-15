@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
-  let post ='유명한 커피 맛집';
+  let post = "유명한 커피 맛집";
   //html 형식으로 작성하는 경우
   //document.querySelector('h5').innerHTML=post;
   return (
@@ -15,8 +15,10 @@ function App() {
       - 를 사용하면 -(뺄셈)으로 인식한다 그래서 font-size 가 아닌 fontSize로 사용한다
       */}
 
-      <div className='black-nav'>
-        <h4 id={post} style={{color :'red'}} >블로그</h4>
+      <div class="black-nav">
+        <h4 id={post} style={{ color: "red" }}>
+          블로그
+        </h4>
       </div>
       <h5>{post}</h5>
     </div>
