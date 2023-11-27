@@ -3,13 +3,13 @@
 
 let cakeData = [
   {
-    id: 0,
+    id: 1,
     cakeName: "크림치즈",
     cakePrice: 6500,
     cakeIMG: "./IMG/cake1.jpg",
   },
   {
-    id: 1,
+    id: 0,
     cakeName: "초코파운드",
     cakePrice: 4500,
     cakeIMG: "./IMG/cake2.jpg",
