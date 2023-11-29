@@ -145,6 +145,9 @@ function App() {
     </div>
   );
 }
+//AJAX 서버에 데이터를 요청 했을 때 원하는 정보를 제공해주는 프로그램이라고 생각하면 된다.
+// 요청 할때 어떤 방법(GET, POST)으로 어떤 정보(URL) 를 받아서 제공을 해주는 것이다
+
 //Nested Routues 는 여러 유사한 페이지가 필요 할때 주로 사용한다
 function Profile_page() {
   return (
