@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import logo from "./logo.svg";
 import "./App.css";
+import axios from "axios";
 // import 무화과케잌 from "./main-bg.jpg";
 
 import cake1 from "./IMG/cake1.jpg";
@@ -26,6 +27,8 @@ function App() {
   let [cakeIMG, setCakeIMG] = useState([cake1, cake2, cake3]);
   let [cakeForm] = useState(cakeData);
   let navigate = useNavigate();
+  let [AjaxB, setAjaxB] = useState(false);
+  let AjaxData = [];
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
     <div className="App">
@@ -142,11 +145,33 @@ function App() {
           />
         </Route>
       </Routes>
+      {/* AJAX 서버에 데이터를 요청 했을 때 원하는 정보를 제공해주는프로그램이라고 생각하면 된다.
+      요청 할때 어떤 방법(GET, POST)으로 어떤 정보(URL) 를 받아서 제공을 해주는 것이다 
+      ajax를 사용하기 위해서 , axios 라이브러리를 설치 npm install axios
+      
+      요청 결과는 axios.get('url').then((data)=>{data})
+      여기서 data 는 결과 값
+*/}
+      <button
+        onClick={() => {
+          axios
+            .get("https://codingapple1.github.io/shop/data2.json")
+            .then((result) => {
+              AjaxData = result.data;
+              console.log(AjaxData);
+              setAjaxB(true);
+            })
+            .catch(() => {
+              console.log("요청실패");
+              setAjaxB(false);
+            });
+        }}
+      >
+        버튼
+      </button>
     </div>
   );
 }
-//AJAX 서버에 데이터를 요청 했을 때 원하는 정보를 제공해주는 프로그램이라고 생각하면 된다.
-// 요청 할때 어떤 방법(GET, POST)으로 어떤 정보(URL) 를 받아서 제공을 해주는 것이다
 
 //Nested Routues 는 여러 유사한 페이지가 필요 할때 주로 사용한다
 function Profile_page() {
