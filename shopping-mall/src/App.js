@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import React from 'react';
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
@@ -25,9 +26,8 @@ function App() {
   // let [cakePrice, setCakePrice] = useState([6500, 4500, 5500]);
 
   let [cakeIMG, setCakeIMG] = useState([cake1, cake2, cake3]);
-  let [cakeForm] = useState(cakeData);
+  let [cakeForm,setCakeForm] = useState(cakeData);
   let navigate = useNavigate();
-  let [AjaxB, setAjaxB] = useState(false);
   let AjaxData = [];
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
@@ -152,23 +152,38 @@ function App() {
       요청 결과는 axios.get('url').then((data)=>{data})
       여기서 data 는 결과 값
 */}
-      <button
+      {/* <button
         onClick={() => {
+          // 로딩중 UI띄우기
           axios
             .get("https://codingapple1.github.io/shop/data2.json")
             .then((result) => {
               AjaxData = result.data;
               console.log(AjaxData);
-              setAjaxB(true);
+              let copy =[...cakeForm, ...AjaxData] ;
+              setCakeForm(copy);
+                 // 로딩중 UI 숨기기
             })
             .catch(() => {
+              // 로딩중 UI띄우기
               console.log("요청실패");
-              setAjaxB(false);
             });
+            //서버로 데이터 전송하는 POST 요청
+            axios.post('/safdfas', {name: 'kim'})
+            //동시에 여러개의 ajax 요청을 하려면
+            Promise.all([axios.get('/url1'),axios.get('/url2')]).then(()=>{})
+          //서버는 문자만 주고 받을 수 있으나
+          ///"따옴표" 를 사용하면 array, object 도 전송이 가능함 // .json 파일은 가능함
+          
+          //js 기본문법 중 하나. Get요청 가능
+          //fetch를 사용하려면 .then(결과=>결과.json()) / .then(data=>{}) 
+          //json 파일을 array/object 변환과정이 필요하다
+          fetch("https://codingapple1.github.io/shop/data2.json")
+          .then(결과=>결과.json())
         }}
       >
         버튼
-      </button>
+      </button> */}
     </div>
   );
 }

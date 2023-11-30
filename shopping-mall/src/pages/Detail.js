@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { useEffect, useState } from "react";
-import { Button, Container, Navbar, Nav, Row, Col } from "react-bootstrap";
+import { Button, Container, Navbar, Nav, Row, Col,Tab,Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -71,6 +71,8 @@ function Detail(props) {
   //현재 url에 입력한 숫자를 알수있는 useParams()
   let { id } = useParams();
   // console.log("id " + id);
+  let [tabBtn,setTabBtn] = useState(0);
+
   return (
     <>
       <h2>상세페이지</h2>
@@ -103,9 +105,40 @@ function Detail(props) {
           주문하기
         </OrderBtn>
       </>
+      <Nav variant="tabs"  defaultActiveKey="link0">
+    <Nav.Item>
+      <Nav.Link onClick={()=>{ setTabBtn(0) }} eventKey="link0" >버튼0</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>{ setTabBtn(1) }} eventKey="link1" >버튼1</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>{ setTabBtn(2) }} eventKey="link2" >버튼2</Nav.Link>
+    </Nav.Item>
+</Nav>
+<Content_tab 탭={tabBtn} />
+     
     </>
   );
 }
+function Content_tab(props,{탭}){
+//   console.log(props.탭)
+
+  if(props.탭==0){
+    return (<div>내용 0</div>)
+  }
+ if(props.탭==1){
+    return <div>내용 1</div>
+  }
+ if(props.탭==2){
+    return <div>내용 2</div>
+  }
+
+//방법 1.
+// return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]
+
+}
+
 function CakeForm_f(props) {
   return (
     <Col>
