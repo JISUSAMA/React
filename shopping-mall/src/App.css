@@ -9,10 +9,19 @@
   background-position: center;
   margin-bottom: 20px;
 }
+.start{
+  opacity: 0;
+}
+.end{
+  opacity: 1;
+  /* opacity가 변경 될 때 0.5초에 걸쳐서 변경해주세요 */
+  transition: opacity 0.5s; 
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

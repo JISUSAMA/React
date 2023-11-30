@@ -1,8 +1,25 @@
 /*eslint-disable*/
-import { useEffect, useState } from "react";
-import { Button, Container, Navbar, Nav, Row, Col,Tab,Tabs } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Container,
+  Navbar,
+  Nav,
+  Row,
+  Col,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
+//let Context1 = createContext() 사용하기
+//Context API 특징, state 변경시 , 쓸데없는 것 까지 재렌더링됨 
+//변경되면, {재고} 안쓰는 놈들도 무조건 렌더링됨
+//그래서 ContextAPI 보다 외부 라이브러리를 사용함
+
+import {Context1} from './../App.js'
+import context from "react-bootstrap/esm/AccordionContext.js";
 
 // // 컴포넌트의 Lifecycle
 // class Detail2 extends React.Component {
@@ -19,6 +36,9 @@ let OrderBtn = styled.button`
 `;
 let OrderBtn2 = styled.button(OrderBtn);
 function Detail(props) {
+//Context 사용하려면 useContext(Context)
+let {재고, cakeForm} =useContext(Context1) //오브젝트 형식으로 들어가 있음
+
   // useEffect(() => {
   //   //컴포넌트의 Lifecycle
   //   //mount, update 시 코드 실행 해주는 useEffect
@@ -71,7 +91,7 @@ function Detail(props) {
   //현재 url에 입력한 숫자를 알수있는 useParams()
   let { id } = useParams();
   // console.log("id " + id);
-  let [tabBtn,setTabBtn] = useState(0);
+  let [tabBtn, setTabBtn] = useState(0);
 
   return (
     <>
@@ -105,38 +125,81 @@ function Detail(props) {
           주문하기
         </OrderBtn>
       </>
-      <Nav variant="tabs"  defaultActiveKey="link0">
-    <Nav.Item>
-      <Nav.Link onClick={()=>{ setTabBtn(0) }} eventKey="link0" >버튼0</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link onClick={()=>{ setTabBtn(1) }} eventKey="link1" >버튼1</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link onClick={()=>{ setTabBtn(2) }} eventKey="link2" >버튼2</Nav.Link>
-    </Nav.Item>
-</Nav>
-<Content_tab 탭={tabBtn} />
-     
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabBtn(0);
+            }}
+            eventKey="link0"
+          >
+            버튼0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabBtn(1);
+            }}
+            eventKey="link1"
+          >
+            버튼1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabBtn(2);
+            }}
+            eventKey="link2"
+          >
+            버튼2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      {재고}
+      <Content_tab cakeForm={props.cakeForm} 탭={tabBtn} />
     </>
   );
 }
-function Content_tab(props,{탭}){
-//   console.log(props.탭)
+//props 전송은 부모 -> 자식만 가능하다
+//이 방법이 싫으면 Context API(리액트 기본 문법을 이용)
+//Redux 등 외부라이브러리 를 사용하면 Props 전송없이 state가 공유가 가능하다
+//성능이 별로, 컴포넌트 재활용이 힘듬
 
-  if(props.탭==0){
-    return (<div>내용 0</div>)
+function Content_tab({ 탭 , cakeForm }) {
+  let [fade, setFade] = useState("");
+  let {재고} = useContext(Context1);
+  useEffect(() => {
+    let a =setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      clearTimeout(a);
+      setFade("");
+    };
+  }, [탭]);
+
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>{재고}</div>,<div>{cakeForm[0].cakeName}</div>, <div>내용 2</div>][탭]}
+    </div>
+  );
+  {
+    /* if(props.탭==0){
+    return <div>내용 0</div>
   }
  if(props.탭==1){
     return <div>내용 1</div>
   }
  if(props.탭==2){
     return <div>내용 2</div>
+  } */
   }
 
-//방법 1.
-// return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]
-
+  //방법 1.
+  // return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]
 }
 
 function CakeForm_f(props) {
@@ -154,5 +217,6 @@ function CakeForm_f(props) {
     </Col>
   );
 }
+
 
 export default Detail;

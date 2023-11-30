@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { createContext } from 'react';
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
@@ -17,6 +17,11 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 import Detail from "./pages/Detail.js";
 
+//Context API 사용하기
+//state 보관함과 같은 역할을 한다
+//<Context>로 원하는 컴포넌트를 감싸줌
+export let Context1 = createContext()
+
 function App() {
   // let [cakeName, setCakeName] = useState([
   //   "크림치즈",
@@ -29,6 +34,9 @@ function App() {
   let [cakeForm,setCakeForm] = useState(cakeData);
   let navigate = useNavigate();
   let AjaxData = [];
+
+  //Context API 사용하기
+  let [재고] = useState([10,20,30])
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
     <div className="App">
@@ -71,7 +79,7 @@ function App() {
                         <p>{cakeForm[cakeForm[i].id].cakePrice}원</p>
                         {/* <Link to="/detail">상세페이지</Link> */}
 
-                        <Link to={"/detail/" + cakeForm[i].id}>상세페이지</Link>
+                        <Link to={"/detail/" + cakeForm[i].id} element={<Detail cakeForm={cakeForm}></Detail>}>상세페이지</Link>
                       </Col>
                       {/* <CakeForm_f
                 id={i}
@@ -121,7 +129,12 @@ function App() {
         <Route path="/detail" element={<Detail cakeForm={cakeForm} />} />
         <Route
           path="/detail/:id"
-          element={<Detail cakeForm={cakeForm}></Detail>}
+          element={
+            <Context1.Provider value={{재고, cakeForm}}>
+              {/* Context1안에있는 모든 컴포넌트는 재고,cakeForm을 사용 할 수 있다 */}
+      <Detail cakeForm={cakeForm}></Detail>
+            </Context1.Provider>
+        }
         />
 
         {/* 404 페이지창 */}
