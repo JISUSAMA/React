@@ -1,8 +1,9 @@
 /*eslint-disable*/
-import React, { createContext } from 'react';
+import React, { createContext } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+import Cart from "./pages/Cart.js";
 // import 무화과케잌 from "./main-bg.jpg";
 
 import cake1 from "./IMG/cake1.jpg";
@@ -17,10 +18,15 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 import Detail from "./pages/Detail.js";
 
+//    사이트 구동에 필요한 모든 라이브러리 버전
+//18.1 버전 이상에서 Redux 를 사용할 수 있음
+//  "react": "^18.2.0",
+//  "react-dom": "^18.2.0",
+
 //Context API 사용하기
 //state 보관함과 같은 역할을 한다
 //<Context>로 원하는 컴포넌트를 감싸줌
-export let Context1 = createContext()
+export let Context1 = createContext();
 
 function App() {
   // let [cakeName, setCakeName] = useState([
@@ -31,12 +37,12 @@ function App() {
   // let [cakePrice, setCakePrice] = useState([6500, 4500, 5500]);
 
   let [cakeIMG, setCakeIMG] = useState([cake1, cake2, cake3]);
-  let [cakeForm,setCakeForm] = useState(cakeData);
+  let [cakeForm, setCakeForm] = useState(cakeData);
   let navigate = useNavigate();
   let AjaxData = [];
 
   //Context API 사용하기
-  let [재고] = useState([10,20,30])
+  let [재고] = useState([10, 20, 30]);
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
     <div className="App">
@@ -79,7 +85,12 @@ function App() {
                         <p>{cakeForm[cakeForm[i].id].cakePrice}원</p>
                         {/* <Link to="/detail">상세페이지</Link> */}
 
-                        <Link to={"/detail/" + cakeForm[i].id} element={<Detail cakeForm={cakeForm}></Detail>}>상세페이지</Link>
+                        <Link
+                          to={"/detail/" + cakeForm[i].id}
+                          element={<Detail cakeForm={cakeForm}></Detail>}
+                        >
+                          상세페이지
+                        </Link>
                       </Col>
                       {/* <CakeForm_f
                 id={i}
@@ -98,7 +109,7 @@ function App() {
           }
         />
         <Route path="/Home" element={<h2>Home Page</h2>} />
-        <Route path="/Cart" element={<h2>Cart Page</h2>} />
+        <Route path="/Cart" element={<Cart />} />
         <Route path="/Visit" element={<h2>Visit Page</h2>} />
         {/* Nested Routues 방법1 */}
         {/* <Route path="/Profile" element={<Profile_page />} />
@@ -130,11 +141,11 @@ function App() {
         <Route
           path="/detail/:id"
           element={
-            <Context1.Provider value={{재고, cakeForm}}>
+            <Context1.Provider value={{ 재고, cakeForm }}>
               {/* Context1안에있는 모든 컴포넌트는 재고,cakeForm을 사용 할 수 있다 */}
-      <Detail cakeForm={cakeForm}></Detail>
+              <Detail cakeForm={cakeForm}></Detail>
             </Context1.Provider>
-        }
+          }
         />
 
         {/* 404 페이지창 */}

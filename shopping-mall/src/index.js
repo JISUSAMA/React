@@ -4,13 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+
+import store from "./store.js";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        {/* store.js 안에있는 state 모두 사용 가능 */}
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
