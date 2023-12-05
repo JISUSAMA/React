@@ -7,7 +7,7 @@ import {
   Nav,
   Row,
   Col,
-  Tab,
+  Tab,k
   Tabs,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
