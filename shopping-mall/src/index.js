@@ -6,17 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
 import store from "./store.js";
+import * as ReactDOMClient from "react-dom/client";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <provider store={store}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
-        {/* store.js 안에있는 state 모두 사용 가능 */}
         <App />
       </BrowserRouter>
-    </React.StrictMode>
-  </provider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

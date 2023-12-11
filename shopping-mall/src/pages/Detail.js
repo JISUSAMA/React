@@ -7,18 +7,18 @@ import {
   Nav,
   Row,
   Col,
-  Tab,k
+  Tab,
   Tabs,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //let Context1 = createContext() 사용하기
-//Context API 특징, state 변경시 , 쓸데없는 것 까지 재렌더링됨 
+//Context API 특징, state 변경시 , 쓸데없는 것 까지 재렌더링됨
 //변경되면, {재고} 안쓰는 놈들도 무조건 렌더링됨
 //그래서 ContextAPI 보다 외부 라이브러리를 사용함
 
-import {Context1} from './../App.js'
+import { Context1 } from "./../App.js";
 import context from "react-bootstrap/esm/AccordionContext.js";
 
 // // 컴포넌트의 Lifecycle
@@ -36,8 +36,8 @@ let OrderBtn = styled.button`
 `;
 let OrderBtn2 = styled.button(OrderBtn);
 function Detail(props) {
-//Context 사용하려면 useContext(Context)
-let {재고, cakeForm} =useContext(Context1) //오브젝트 형식으로 들어가 있음
+  //Context 사용하려면 useContext(Context)
+  let { 재고, cakeForm } = useContext(Context1); //오브젝트 형식으로 들어가 있음
 
   // useEffect(() => {
   //   //컴포넌트의 Lifecycle
@@ -168,11 +168,11 @@ let {재고, cakeForm} =useContext(Context1) //오브젝트 형식으로 들어�
 //Redux 등 외부라이브러리 를 사용하면 Props 전송없이 state가 공유가 가능하다
 //성능이 별로, 컴포넌트 재활용이 힘듬
 
-function Content_tab({ 탭 , cakeForm }) {
+function Content_tab({ 탭, cakeForm }) {
   let [fade, setFade] = useState("");
-  let {재고} = useContext(Context1);
+  let { 재고 } = useContext(Context1);
   useEffect(() => {
-    let a =setTimeout(() => {
+    let a = setTimeout(() => {
       setFade("end");
     }, 100);
     return () => {
@@ -183,7 +183,13 @@ function Content_tab({ 탭 , cakeForm }) {
 
   return (
     <div className={`start ${fade}`}>
-      {[<div>{재고}</div>,<div>{cakeForm[0].cakeName}</div>, <div>내용 2</div>][탭]}
+      {
+        [
+          <div>{재고}</div>,
+          <div>{cakeForm[0].cakeName}</div>,
+          <div>내용 2</div>,
+        ][탭]
+      }
     </div>
   );
   {
@@ -217,6 +223,5 @@ function CakeForm_f(props) {
     </Col>
   );
 }
-
 
 export default Detail;
