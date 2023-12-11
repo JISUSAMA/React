@@ -1,63 +1,47 @@
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import Store from "../store.js";
+import { useDispatch, useSelector } from "react-redux";
+import Store from "../store";
+import { changeName } from "../store";
 import { combineSlices } from "@reduxjs/toolkit";
+import React from "react";
 //Redux를 사용하면 컴포넌트들이 props 없이 state 공유가 가능하다
-function Cart() {
-  let CartData = useSelector((state) => state.Store.Cart);
-
+function CartGrup() {
+  let CartData = useSelector((state) => state);
+  let dispatch = useDispatch(); //state변경함수 사용하기 위해서 사용함
   return (
     <div>
+      {CartData.UID} 장바구니 리스트
       <Table>
         <thead>
           <tr>
             <th> #</th>
             <th>상품명</th>
             <th>수량</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {CartData.Cart.map((a, i) => {
-            <tr>
-              <td>{CartData.Cart[i] + 1}</td>
-              <td>{CartData.Cart[i].name}</td>
-              <td>{CartData.Cart[i].count}개</td>
-            </tr>;
+            return (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{a.name}</td>
+                <td>{a.count}개</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      dispatch(changeName());
+                    }}
+                  >
+                    변경
+                  </button>
+                </td>
+              </tr>
+            );
           })}
-          <CartList
-            CartData={CartData}
-            length={CartData.Cart.length}
-            list_n={0}
-          ></CartList>
-
-          {/* <tr>
-            <td>1</td>
-            <td>{CartData.Cart[0].name}</td>
-            <td>{CartData.Cart[0].count}개</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>{CartData.Cart[1].name}</td>
-            <td>{CartData.Cart[1].count}개</td>
-          </tr> */}
-          {/* <CartList
-            CartData={CartData}
-            length={CartData.Cart.length}
-            list_n={0}
-          ></CartList> */}
         </tbody>
       </Table>
     </div>
   );
 }
-export default Cart;
-function CartList(props) {
-  console.log("들어오는거낙?");
-  return (
-    <tr>
-      <td>{props.list_n + 1}</td>
-      <td>{props.CartData.Cart[props.list_n].name}</td>
-      <td>{props.CartData.Cart[props.list_n].count}개</td>
-    </tr>
-  );
-}
+export default CartGrup;

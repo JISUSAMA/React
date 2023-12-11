@@ -4,14 +4,20 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 let user = createSlice({
   //name에는 state의 이름, initialState 에는 값을 넣어줌
   name: "UID",
-  initialState: "Park",
+  initialState: "PARK",
+  reducers: {
+    changeName(state) {
+      return "JISU" + state;
+    },
+  },
 });
-
-let cart = createSlice({
+//state 변경 함수들이 남는다 , 만든 함수 export 해주는 방법
+export let { changeName } = user.actions;
+let Cart = createSlice({
   name: "cart",
   initialState: [
     { id: 0, name: "White and Black", count: 2 },
-    { id: 2, name: "Grey Yordan", count: 1 },
+    { id: 1, name: "Grey Yordan", count: 1 },
   ],
 });
 
@@ -19,7 +25,7 @@ let cart = createSlice({
 export default configureStore({
   reducer: {
     //사용하기 위해서 여기에 등록을 해주어야함
-    UID_1: user.reducer,
-    Cart: cart.reducer,
+    UID: user.reducer,
+    Cart: Cart.reducer,
   },
 });
