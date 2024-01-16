@@ -1,6 +1,8 @@
 
 /*eslint-disable*/
 import { useContext, useEffect, useState } from "react";
+import {addItem} from '../store';
+
 import {
   Button,
   Container,
@@ -20,7 +22,9 @@ import styled from "styled-components";
 //그래서 ContextAPI 보다 외부 라이브러리를 사용함
 
 import { Context1 } from "./../App.js";
+import { useDispatch } from "react-redux";
 import context from "react-bootstrap/esm/AccordionContext.js";
+
 
 // // 컴포넌트의 Lifecycle
 // class Detail2 extends React.Component {
@@ -50,6 +54,7 @@ function Detail(props) {
 
   let [TimeSale, setTimeSale] = useState(3);
   let [styleChange, setStyle] = useState("block");
+let dispatch = useDispatch();
 
   //실행할 코드
   //useEffect(()=>{}) 1. 재렌더링 마다 코드 실행하고 싶을 경우,
@@ -112,8 +117,9 @@ function Detail(props) {
         }}
       />
       <>
-        <button>주문하기</button>
-        <OrderBtn bg={"skyblue"} fs={"20px"}>
+        <button onClick={()=>{dispatch(
+          addItem( { id: 2, name: "Red Yordan", count: 1 }))}}>주문하기</button>
+        {/* <OrderBtn bg={"skyblue"} fs={"20px"}>
           주문하기
         </OrderBtn>
         <OrderBtn
@@ -124,7 +130,7 @@ function Detail(props) {
           fs={"20px"}
         >
           주문하기
-        </OrderBtn>
+        </OrderBtn> */}
       </>
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>

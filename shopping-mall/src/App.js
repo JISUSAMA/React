@@ -52,7 +52,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link href="/Home">Home</Nav.Link>
             <Nav.Link href="/Cart">Cart</Nav.Link>
-            <Nav.Link href="/Visit">Visit</Nav.Link>
+            <Nav.Link href="/detail/0">detail</Nav.Link>
             <Nav.Link
               onClick={() => {
                 navigate("/Profile");
