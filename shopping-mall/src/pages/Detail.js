@@ -74,7 +74,6 @@ let dispatch = useDispatch();
     }, 1000);
     return () => {
       //useEffect 동작 전에 실행되는 코드를 작성
-      console.log(1);
       clearTimeout(timer); //타이머 제거함수 //mount 시 실행이 안되고 unmount 시 실행이 된다.
     };
   }, []);
@@ -98,6 +97,16 @@ let dispatch = useDispatch();
   let { id } = useParams();
   // console.log("id " + id);
   let [tabBtn, setTabBtn] = useState(0);
+
+    
+  useEffect(()=>{
+    let 꺼냄  =localStorage.getItem('watched');
+꺼냄 = JSON.parse(꺼냄)
+꺼냄.push(props.cakeForm[id].id);
+꺼냄 = new Set(꺼냄)
+꺼냄 = Array.from(꺼냄)
+localStorage.setItem('watched',JSON.stringify(꺼냄));
+},[])
 
   return (
     <>

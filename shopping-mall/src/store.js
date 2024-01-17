@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import user from "./store/userSlice";
+import { json } from "react-router-dom";
 
 // //useState와 같은 속성
 // let user = createSlice({
@@ -17,14 +18,11 @@ import user from "./store/userSlice";
 //     }
 //   },
 // });
-
-
 let Cart = createSlice({
   name: "cart",
   initialState: [
     { id: 0, name: "White and Black", count: 2 },
     { id: 1, name: "Grey Yordan", count: 1 },
-
   ],
   reducers:{
     changeCart(state,a){
@@ -35,6 +33,13 @@ let Cart = createSlice({
     }
   }
 });
+localStorage.setItem('cart',JSON.stringify(Cart));
+let getBack =localStorage.getItem('cart');
+console.log(getBack);
+
+let parseCart = JSON.parse(getBack);
+console.log(parseCart);
+
 
 //Redux 는 컴포넌트 간 state 공유를 쉽게 하기 위해서 사용함
 export default configureStore({

@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { createContext } from "react";
+import React, { createContext , useEffect} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
@@ -39,10 +39,13 @@ function App() {
   let [cakeIMG, setCakeIMG] = useState([cake1, cake2, cake3]);
   let [cakeForm, setCakeForm] = useState(cakeData);
   let navigate = useNavigate();
-  let AjaxData = [];
-
   //Context API 사용하기
   let [재고] = useState([10, 20, 30]);
+  useEffect(()=>{
+    localStorage.setItem('watched',JSON.stringify([]));
+},[])
+
+
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
     <div className="App">
@@ -87,7 +90,8 @@ function App() {
 
                         <Link
                           to={"/detail/" + cakeForm[i].id}
-                          element={<Detail cakeForm={cakeForm}></Detail>}
+                          element={<Detail cakeForm={cakeForm}></Detail>
+                        }
                         >
                           상세페이지
                         </Link>
