@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { createContext , useEffect} from "react";
+import React, { createContext ,useState, useEffect} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
@@ -11,7 +11,7 @@ import cake2 from "./IMG/cake2.jpg";
 import cake3 from "./IMG/cake3.jpg";
 
 import { Button, Container, Navbar, Nav, Row, Col } from "react-bootstrap";
-import { useState } from "react";
+
 // import { cakePrice, cakeName } from "./data.js";
 import { cakeData } from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
@@ -30,14 +30,10 @@ export let Context1 = createContext();
 
 //axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{a.data});
 
-let result =  useQuery('useReactQuery',()=>{
- return axios.get('https://codingapple1.github.io/userdata.json')
- .then((a)=>{ return a.data});
-})
-
-result.data //성공
-result.isLoading //로딩중
-result.error  // 실패
+// let result =  useQuery('useReactQuery',()=>{
+//  return axios.get('https://codingapple1.github.io/userdata.json')
+//  .then((a)=>{ return a.data});
+// })
 
 function App() {
   // let [cakeName, setCakeName] = useState([
@@ -83,7 +79,7 @@ function App() {
           element={
             <>
               <h2>Main Page</h2>
-              {result.isLoading ? "로딩중" : "결과창"}
+              {/* {result.isLoading ? "로딩중" : "결과창"} */}
               <div className="main-bg"></div>
               <Row>
                 {cakeForm.map(function (a, i) {
