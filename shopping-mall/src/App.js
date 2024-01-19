@@ -17,7 +17,7 @@ import { cakeData } from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 import Detail from "./pages/Detail.js";
-
+import {useQuery} from "react-query"
 //    사이트 구동에 필요한 모든 라이브러리 버전
 //18.1 버전 이상에서 Redux 를 사용할 수 있음
 //  "react": "^18.2.0",
@@ -27,6 +27,17 @@ import Detail from "./pages/Detail.js";
 //state 보관함과 같은 역할을 한다
 //<Context>로 원하는 컴포넌트를 감싸줌
 export let Context1 = createContext();
+
+//axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{a.data});
+
+let result =  useQuery('useReactQuery',()=>{
+ return axios.get('https://codingapple1.github.io/userdata.json')
+ .then((a)=>{ return a.data});
+})
+
+result.data //성공
+result.isLoading //로딩중
+result.error  // 실패
 
 function App() {
   // let [cakeName, setCakeName] = useState([
@@ -72,6 +83,7 @@ function App() {
           element={
             <>
               <h2>Main Page</h2>
+              {result.isLoading ? "로딩중" : "결과창"}
               <div className="main-bg"></div>
               <Row>
                 {cakeForm.map(function (a, i) {
