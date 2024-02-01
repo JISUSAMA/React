@@ -1,16 +1,37 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Store, { addItem } from "../store";
-import { changeName , changeAge } from "../store/userSlice";
+import user, { changeName , changeAge } from "../store/userSlice";
 import {changeCart} from '../store';
 import { combineSlices } from "@reduxjs/toolkit";
-import React from "react";
+import React, { memo, useMemo, useState } from "react";
+
+
+const Child = memo(function Child(){
+  console.log('다시불러와지나')
+  return <div>child</div>
+})
+
+function Total(){
+  let result =0;
+  for(let i =0; i<10; i++){
+    result +=i;
+  //  console.log(result);
+  } 
+  return result;
+}
 //Redux를 사용하면 컴포넌트들이 props 없이 state 공유가 가능하다
 function CartGrup() {
   let CartData = useSelector((state) => state);
   let dispatch = useDispatch(); //state변경함수 사용하기 위해서 사용함
+
+   let [count, setCount] = useState(0);
+let total = useMemo(()=>{return Total()})
+console.log(total)
   return (
     <div>
+      <Child></Child>
+      <button onClick={()=>{setCount(count +1)}}>+</button>
       <h4>{CartData.UID.name} {CartData.UID.age}의 장바구니 리스트</h4>
       <button onClick={()=>{dispatch(changeAge(10))}}>나이 + 1</button>
       <Table>

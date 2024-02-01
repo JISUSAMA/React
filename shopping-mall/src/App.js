@@ -1,9 +1,21 @@
 /*eslint-disable*/
-import React, { createContext ,useState, useEffect} from "react";
+import React, {
+  lazy,
+  Suspense,
+  createContext,
+  useState,
+  useEffect,
+} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import Cart from "./pages/Cart.js";
+
+// import Cart from "./pages/Cart.js";
+// import Detail from "./pages/Detail.js";
+//lazy
+const Cart = lazy(() => import("./pages/Cart.js"));
+const Detail = lazy(() => import("./pages/Detail.js"));
+
 // import 무화과케잌 from "./main-bg.jpg";
 
 import cake1 from "./IMG/cake1.jpg";
@@ -16,8 +28,7 @@ import { Button, Container, Navbar, Nav, Row, Col } from "react-bootstrap";
 import { cakeData } from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
-import Detail from "./pages/Detail.js";
-import {useQuery} from "react-query"
+import { useQuery } from "react-query";
 //    사이트 구동에 필요한 모든 라이브러리 버전
 //18.1 버전 이상에서 Redux 를 사용할 수 있음
 //  "react": "^18.2.0",
@@ -48,10 +59,9 @@ function App() {
   let navigate = useNavigate();
   //Context API 사용하기
   let [재고] = useState([10, 20, 30]);
-  useEffect(()=>{
-    localStorage.setItem('watched',JSON.stringify([]));
-},[])
-
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify([]));
+  }, []);
 
   //Link는 다른 페이지나 리스소에 대한 참조를 생성하는데 사용하지만 한 화면에서 다른화면으로 이동하는데 사용한다 페이지 이동을 도와주는 함수
   return (
@@ -98,8 +108,7 @@ function App() {
 
                         <Link
                           to={"/detail/" + cakeForm[i].id}
-                          element={<Detail cakeForm={cakeForm}></Detail>
-                        }
+                          element={<Detail cakeForm={cakeForm}></Detail>}
                         >
                           상세페이지
                         </Link>
@@ -121,7 +130,14 @@ function App() {
           }
         />
         <Route path="/Home" element={<h2>Home Page</h2>} />
-        <Route path="/Cart" element={<Cart />} />
+        <Route
+          path="/Cart"
+          element={
+            <Suspense fallback={<div>로딩중 UI</div>}>
+              <Cart />
+            </Suspense>
+          }
+        />
         <Route path="/Visit" element={<h2>Visit Page</h2>} />
         {/* Nested Routues 방법1 */}
         {/* <Route path="/Profile" element={<Profile_page />} />
